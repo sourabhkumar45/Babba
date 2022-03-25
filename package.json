@@ -2,7 +2,12 @@
   "name": "highradius-client",
   "version": "0.1.0",
   "private": true,
+  "proxy":"http://localhost:8080/",
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.2",
+    "@mui/x-data-grid": "^5.6.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
