@@ -140,9 +140,9 @@ export default function DataTable({
           if (arr.length === 0) {
             setSelected(false);
           } else {
-            setSelectedRows(arr);
             setSelected(true);
           }
+          setSelectedRows(arr);
         }}
       />
     </div>
