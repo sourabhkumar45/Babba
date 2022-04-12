@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -32,6 +33,26 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function AddModal({ handleClose, open }) {
+  const [data, setData] = React.useState({});
+
+  const handleChange = (key, value) => {
+    data[key] = value;
+    setData(data);
+  };
+
+  const handleSubmit = async () => {
+    const form = new FormData();
+    console.log(data);
+    for (var key in data) {
+      form.append(key, data[key]);
+    }
+    try {
+      await axios.post("http://localhost:3000/HighRadius/Add", data);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -68,27 +89,26 @@ function AddModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                defaultValue={data["business_code"] || ""}
                 placeholder="Business code"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
+                onChange={(e) => {
+                  handleChange("business_code", e.target.value);
+                }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
                 placeholder="Customer Number"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
-                onFocus={(e) => {
-                  e.target.type = "date";
+                onChange={(e) => {
+                  handleChange("cust_number", e.target.value);
                 }}
-                onBlur={(e) => {
-                  e.target.type = "text";
-                }}
+                defaultValue={data["cust_number"] || ""}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
                 placeholder="Clear Date"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
                 onFocus={(e) => {
@@ -97,11 +117,18 @@ function AddModal({ handleClose, open }) {
                 onBlur={(e) => {
                   e.target.type = "text";
                 }}
+                onChange={(e) => {
+                  handleChange("clear_date", e.target.value);
+                }}
+                defaultValue={data["clear_date"] || ""}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("buisness_year", e.target.value);
+                }}
+                defaultValue={data["buisness_year"] || ""}
                 placeholder="Business Year"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
@@ -116,14 +143,20 @@ function AddModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("doc_id", e.target.value);
+                }}
+                defaultValue={data["doc_id"] || ""}
                 placeholder="Document id"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("posting_date", e.target.value);
+                }}
+                defaultValue={data["posting_date"] || ""}
                 placeholder="Posting Date"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
                 onFocus={(e) => {
@@ -136,7 +169,10 @@ function AddModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("document_create_date", e.target.value);
+                }}
+                defaultValue={data["document_create_date"] || ""}
                 placeholder="Document Create Date"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
                 onFocus={(e) => {
@@ -149,7 +185,10 @@ function AddModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("due_in_date", e.target.value);
+                }}
+                defaultValue={data["due_in_date"] || ""}
                 placeholder="Due Date"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
                 onFocus={(e) => {
@@ -170,28 +209,40 @@ function AddModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("invoice_currency", e.target.value);
+                }}
+                defaultValue={data["invoice_currency"] || ""}
                 placeholder="Invoice Currency"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("document_type", e.target.value);
+                }}
+                defaultValue={data["document_type"] || ""}
                 placeholder="Document type"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("posting_id", e.target.value);
+                }}
+                defaultValue={data["posting_id"] || ""}
                 placeholder="Posting Id"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("total_open_amount", e.target.value);
+                }}
+                defaultValue={data["total_open_amount"] || ""}
                 placeholder="Total Open Amount"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
@@ -214,18 +265,28 @@ function AddModal({ handleClose, open }) {
                 onBlur={(e) => {
                   e.target.type = "text";
                 }}
+                onChange={(e) => {
+                  handleChange("baseline_create_date", e.target.value);
+                }}
+                defaultValue={data["baseline_create_date"] || ""}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("cust_payment_terms", e.target.value);
+                }}
+                defaultValue={data["cust_payment_terms"] || ""}
                 placeholder="Customer Payment Term"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                onChange={(e) => {
+                  handleChange("invoice_id", e.target.value);
+                }}
+                defaultValue={data["invoice_id"] || ""}
                 placeholder="Invoice Id"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
               />
@@ -237,7 +298,9 @@ function AddModal({ handleClose, open }) {
                 gap: "2rem",
               }}
             >
-              <ColorButton variant="outlined">ADD</ColorButton>
+              <ColorButton variant="outlined" onClick={handleSubmit}>
+                ADD
+              </ColorButton>
               <ColorButton variant="outlined" onClick={handleClose}>
                 CANCEL
               </ColorButton>

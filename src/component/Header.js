@@ -21,10 +21,13 @@ function Header() {
 
   const handleOpenAdd = () => setOpenAdd(true);
   const handleCloseAdd = () => setOpenAdd(false);
+
   const handleOpenEdit = () => setOpenEdit(true);
   const handleCloseEdit = () => setOpenEdit(false);
+
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelete = () => setOpenDelete(false);
+
   const handleOpenAS = () => setOpenAS(true);
   const handleCloseAS = () => setOpenAS(false);
 

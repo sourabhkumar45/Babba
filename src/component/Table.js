@@ -84,7 +84,7 @@ const columns = [
 
 export default function DataTable() {
   const [data, setData] = React.useState([]);
-
+  const [pageSize, setPageSize] = React.useState(10);
   React.useEffect(() => {
     (async () => {
       let resp = await fetch("http://localhost:3000/HighRadius/Display");
@@ -97,7 +97,7 @@ export default function DataTable() {
     })();
   }, []);
   return (
-    <div style={{ height: 608, width: "100%" }}>
+    <div style={{ height: (608 / 10) * pageSize, width: "100%" }}>
       <DataGrid
         checkboxSelection
         rows={data}
@@ -111,8 +111,9 @@ export default function DataTable() {
           },
         }}
         columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[15]}
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10, 20]}
       />
     </div>
   );
