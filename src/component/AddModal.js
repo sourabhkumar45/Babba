@@ -41,13 +41,18 @@ function AddModal({ handleClose, open }) {
   };
 
   const handleSubmit = async () => {
-    const form = new FormData();
-    console.log(data);
+    let url = `http://localhost:3000/HighRadius/Add?`;
+    let i = 0;
     for (var key in data) {
-      form.append(key, data[key]);
+      if (i === 0) {
+        url += `${key}=${data[key]}`;
+      } else {
+        url += `&${key}=${data[key]}`;
+      }
+      i++;
     }
     try {
-      await axios.post("http://localhost:3000/HighRadius/Add", data);
+      await axios.post(url, data);
     } catch (err) {
       alert(err.message);
     }
