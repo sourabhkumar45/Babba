@@ -1,5 +1,34 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import { styled } from "@mui/material/styles";
+
+const MyGrid = styled(DataGrid)(({ theme }) => ({
+  color: theme.palette.warning,
+  "& .MuiDataGrid-cell:hover": {
+    color: "primary.main",
+  },
+  "& .MuiTablePagination-displayedRows": {
+    color: "white",
+  },
+  "& .MuiTablePagination-selectLabel ": {
+    color: "white",
+  },
+  "& .MuiInputBase-root": {
+    color: "white",
+  },
+  "& .MuiTablePagination-selectIcon": {
+    color: "white",
+  },
+  "& .MuiTablePagination-actions": {
+    color: "white",
+  },
+  "& .MuiCheckbox-root": {
+    color: "white",
+  },
+  "& .MuiButtonBase-root": {
+    color: "white",
+  },
+}));
 
 const columns = [
   {
@@ -82,23 +111,16 @@ const columns = [
   },
 ];
 
-export default function DataTable() {
-  const [data, setData] = React.useState([]);
-  const [pageSize, setPageSize] = React.useState(10);
-  React.useEffect(() => {
-    (async () => {
-      let resp = await fetch("http://localhost:3000/HighRadius/Display");
-      resp = await resp.json();
-      console.log(resp);
-      for (let i = 0; i < resp.length; i++) {
-        resp[i].id = i;
-      }
-      setData(resp);
-    })();
-  }, []);
+export default function DataTable({
+  setSelected,
+  setSelectedRows,
+  data,
+  pageSize,
+  setPageSize,
+}) {
   return (
     <div style={{ height: (608 / 10) * pageSize, width: "100%" }}>
-      <DataGrid
+      <MyGrid
         checkboxSelection
         rows={data}
         sx={{
@@ -114,6 +136,14 @@ export default function DataTable() {
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rowsPerPageOptions={[5, 10, 20]}
+        onSelectionModelChange={(arr) => {
+          if (arr.length === 0) {
+            setSelected(false);
+          } else {
+            setSelectedRows(arr);
+            setSelected(true);
+          }
+        }}
       />
     </div>
   );

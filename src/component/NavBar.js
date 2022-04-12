@@ -13,7 +13,6 @@ function NavBar() {
         justifyContent: "flex-start",
         alignItems: "center",
       }}
-      s
     >
       <div
         style={{
