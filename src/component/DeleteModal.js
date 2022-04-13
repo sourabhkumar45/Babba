@@ -37,7 +37,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-function DeleteModal({ handleClose, open, selectedRows }) {
+function DeleteModal({ handleClose, open, selectedRows,handleRefresh }) {
   const [openSnack, setOpenSnack] = React.useState(false);
 
   const handleCloseSnack = (event, reason) => {
@@ -57,6 +57,7 @@ function DeleteModal({ handleClose, open, selectedRows }) {
         );
       }
       setOpenSnack(true);
+      handleRefresh();
     } catch (err) {
       alert(err.message);
     }

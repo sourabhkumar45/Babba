@@ -12,8 +12,8 @@ function Footer() {
         alignItems: "center",
       }}
     >
-      <a href="https://www.highradius.com/">Privacy Policy</a>&nbsp;| Ⓒ
-      HighRadius Corporation. All rights reserved.
+      <a href="https://www.highradius.com/">Privacy Policy</a>
+      &nbsp;| Ⓒ HighRadius Corporation. All rights reserved.
     </div>
   );
 }

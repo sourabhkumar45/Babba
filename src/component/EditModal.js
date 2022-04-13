@@ -38,7 +38,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function EditModal({ handleClose, open, selectedRows }) {
+function EditModal({ handleClose, open, selectedRows, handleRefresh }) {
   const [ci, setCi] = React.useState("");
   const [pt, setPt] = React.useState("");
   const [openSnack, setOpenSnack] = React.useState(false);
@@ -61,6 +61,9 @@ function EditModal({ handleClose, open, selectedRows }) {
         );
         handleClose();
         setOpenSnack(true);
+        setCi("");
+        setPt("");
+        handleRefresh();
       } catch (err) {
         alert(err.message);
       }

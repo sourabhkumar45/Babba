@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import { grey } from "@mui/material/colors";
 import { styled } from "@mui/material/styles";
 
+import axios from "axios";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -31,7 +33,26 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function AdvancedSearchModal({ handleClose, open }) {
+function AdvancedSearchModal({ handleClose, open, setData }) {
+  const [docId, setDocId] = React.useState("");
+  const [inId, setInid] = React.useState("");
+  const [cn, setCn] = React.useState("");
+  const [bYear, setBYear] = React.useState("");
+
+  const handleSubmit = async () => {
+    handleClose();
+    try {
+      let url = `http://localhost:3000/HighRadius/AdvanceSearch?doc_id=${docId}&invoice_id=${inId}&cust_number=${cn}&buisness_year=${bYear}`;
+      let data = await axios.get(url);
+      data = data.data;
+      for (let i = 0; i < data.length; i++) {
+        data[i].id = data[i]["sl_no"];
+      }
+      setData(data);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -68,16 +89,22 @@ function AdvancedSearchModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
                 placeholder="Document ID"
+                defaultValue={docId}
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
+                onChange={(e) => {
+                  setDocId(e.target.value);
+                }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                defaultValue={inId}
                 placeholder="Invoice Id"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
+                onChange={(e) => {
+                  setInid(e.target.value);
+                }}
               />
             </div>
             <div
@@ -90,16 +117,22 @@ function AdvancedSearchModal({ handleClose, open }) {
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                defaultValue={cn}
                 placeholder="Customer Number"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
+                onChange={(e) => {
+                  setCn(e.target.value);
+                }}
               />
               <TextField
                 hiddenLabel
                 id="filled-hidden-label-small"
-                defaultValue=""
+                defaultValue={bYear}
                 placeholder="Business year"
                 sx={{ width: 250, backgroundColor: "white", borderRadius: 2 }}
+                onChange={(e) => {
+                  setBYear(e.target.value);
+                }}
               />
             </div>
             <div
@@ -109,7 +142,7 @@ function AdvancedSearchModal({ handleClose, open }) {
                 gap: "2rem",
               }}
             >
-              <ColorButton variant="outlined" onClick={handleClose}>
+              <ColorButton variant="outlined" onClick={handleSubmit}>
                 SEARCH
               </ColorButton>
               <ColorButton variant="outlined" onClick={handleClose}>

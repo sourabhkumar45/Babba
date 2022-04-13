@@ -38,7 +38,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function AddModal({ handleClose, open }) {
+function AddModal({ handleClose, open, handleRefresh }) {
   const [data, setData] = React.useState({});
   const [openSnack, setOpenSnack] = React.useState(false);
 
@@ -68,6 +68,8 @@ function AddModal({ handleClose, open }) {
       handleClose();
       await axios.post(url, {});
       setOpenSnack(true);
+      setData({});
+      handleRefresh();
     } catch (err) {
       alert(err.message);
     }

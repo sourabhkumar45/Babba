@@ -34,6 +34,22 @@ const ColorButton = styled(Button)(({ theme }) => ({
   },
 }));
 
+const PredictButton = styled(Button)(({ theme }) => ({
+  color: "white",
+  borderColor: "#42aff1",
+  fontSize: "13px",
+  backgroundColor: "#42aff1",
+  "&:hover": {
+    borderColor: grey[50],
+    backgroundColor: "#42aff1",
+  },
+  "&:disabled": {
+    color: "white",
+    borderColor: "grey",
+    cursor: "not-allowed",
+  },
+}));
+
 function Header({ isSelected, selectedRows, setData }) {
   const [openAdd, setOpenAdd] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -100,7 +116,7 @@ function Header({ isSelected, selectedRows, setData }) {
             aria-label="large button group"
             sx={{ color: "#42aff1" }}
           >
-            <ColorButton key="PREDICT">PREDICT</ColorButton>
+            <PredictButton key="PREDICT">PREDICT</PredictButton>
             <ColorButton key="ANALYTICS">ANALYTICS VIEW</ColorButton>
             <ColorButton key="ADVANCE" onClick={handleOpenAS}>
               ADVANCE SEARCH
@@ -152,20 +168,27 @@ function Header({ isSelected, selectedRows, setData }) {
             DELETE
           </ColorButton>
         </ButtonGroup>
-        <AddModal handleClose={handleCloseAdd} open={openAdd}></AddModal>
+        <AddModal
+          handleClose={handleCloseAdd}
+          open={openAdd}
+          handleRefresh={handleRefresh}
+        ></AddModal>
         <EditModal
           handleClose={handleCloseEdit}
           open={openEdit}
           selectedRows={selectedRows}
+          handleRefresh={handleRefresh}
         ></EditModal>
         <DeleteModal
           handleClose={handleCloseDelete}
           open={openDelete}
           selectedRows={selectedRows}
+          handleRefresh={handleRefresh}
         ></DeleteModal>
         <AdvancedSearchModal
           handleClose={handleCloseAS}
           open={openAS}
+          setData={setData}
         ></AdvancedSearchModal>
       </div>
       <Snackbar
