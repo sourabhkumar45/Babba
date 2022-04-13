@@ -11,7 +11,7 @@ function NavBar() {
         backgroundColor: "#2d4250",
         display: "flex",
         justifyContent: "flex-start",
-        alignItems: "center",
+        alignItems: "flex-start",
       }}
     >
       <div

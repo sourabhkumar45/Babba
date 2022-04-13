@@ -28,7 +28,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#42aff1",
   },
   "&:disabled": {
-    color: "grey",
+    color: "white",
     borderColor: "grey",
     cursor: "not-allowed",
   },
@@ -128,13 +128,18 @@ function Header({ isSelected, selectedRows, setData }) {
           aria-label="large button group"
           sx={{ color: "#42aff1", ml: 10, zIndex: 1 }}
         >
-          <ColorButton key="ADD" onClick={handleOpenAdd}>
+          <ColorButton
+            key="ADD"
+            onClick={handleOpenAdd}
+            sx={{ width: "130px" }}
+          >
             ADD
           </ColorButton>
           <ColorButton
             key="EDIT"
             onClick={handleOpenEdit}
             disabled={selectedRows.length !== 1}
+            sx={{ width: "130px" }}
           >
             EDIT
           </ColorButton>
@@ -142,6 +147,7 @@ function Header({ isSelected, selectedRows, setData }) {
             key="DELETE"
             onClick={handleOpenDelete}
             disabled={!isSelected}
+            sx={{ width: "130px" }}
           >
             DELETE
           </ColorButton>
